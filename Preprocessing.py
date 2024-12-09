@@ -149,7 +149,7 @@ def subplot_images(image, nr, title):
     plt.imshow(image)
     plt.title(title)
 
-img = get_image('Dataset/Brain3.png')
+img = get_image('Dataset/Brain6.png')
 # Show the original and segmented images
 #plt.figure(figsize=(8, 5))
  
@@ -158,7 +158,7 @@ filtered_img = filter_image(img)
 stripped_img = skull_stripping2(filtered_img)
 #stripped_img = skull_stripping2(img)
 
-#cv2.imwrite('Dataset/Brain2_stripped_and_processed.png', stripped_image)
+#cv2.imwrite('Dataset/Brain6_stripped_and_processed.png', stripped_img)
 
 #plt.show()
 
