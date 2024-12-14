@@ -89,7 +89,8 @@ def findRegions(image):
     image_with_seed = cv2.circle(image, (310,491), radius=5, color=(255, 0, 0), thickness=-1)
     Main.subplot_images(image_with_seed, 3, 'image with seed')
     grey = region_growing(grey_image, (310,491),15)
-    white = region_growing(grey_image, (150,400),5)
+    #white = region_growing(grey_image, (150,400),5)
+    white = region_growing(grey_image, (325,370),5)
     fluid = region_growing(grey_image, (250,250),25)
 
     return grey, white, fluid

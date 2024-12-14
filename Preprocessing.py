@@ -25,24 +25,16 @@ def filter_image(image):
 def skull_stripping(image):
     grey_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     ret, thresh_image = cv2.threshold(grey_image,75,255,cv2.THRESH_OTSU)
- 
-    colormask = np.zeros(image.shape, dtype=np.uint8)
-    colormask[thresh_image!=0] = np.array((0,0,255))
-    #blended_image = cv2.addWeighted(image,0.7,colormask,0.1,0)
-
     ret, markers = cv2.connectedComponents(thresh_image)
 
     #Get the area taken by each component. Ignore label 0 since this is the background.
     marker_area = [np.sum(markers==m) for m in range(np.max(markers)) if m!=0] 
     #Get label of largest component by area
     largest_component = np.argmax(marker_area)+1 #Add 1 since we dropped zero above
-    largest_components = np.argpartition(marker_area, -5)[-5:]
-
                          
     #Get pixels which correspond to the brain
-    brain_mask = markers==largest_component 
-    
-    
+    brain_mask = markers==largest_component
+
     brain_image = image.copy()
     #In a copy of the original image, clear those pixels that don't correspond to the brain
     brain_image[brain_mask==False] = (0,0,0)
