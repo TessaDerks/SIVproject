@@ -86,8 +86,10 @@ def region_growing(image, seed, threshold):
 
 def findRegions(image):
     grey_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    image_with_seed = cv2.circle(image, (310,491), radius=5, color=(255, 0, 0), thickness=-1)
+    # plot a seed in case you wanna check
+    image_with_seed = cv2.circle(image, (310,491), radius=5, color=(255, 0, 0), thickness=-1) 
     Main.subplot_images(image_with_seed, 3, 'image with seed')
+    # find region based on seed choice
     grey = region_growing(grey_image, (310,491),15)
     #white = region_growing(grey_image, (150,400),5)
     white = region_growing(grey_image, (325,370),5)
