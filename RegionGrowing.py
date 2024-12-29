@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import Main
 
 
-def region_growing2(image, seed, thershold):
+def region_growing2(image, seed, threshold):
 
 
     #Parameters for region growing
@@ -16,10 +16,10 @@ def region_growing2(image, seed, thershold):
     neighbor_intensity_list = []
 
     #Mean of the segmented region
-    region_mean = grey_image[seed]
+    region_mean = image[seed]
 
     #Input image parameters
-    height, width = grey_image.shape
+    height, width = image.shape
     image_size = height * width
 
     #Initialize segmented output image
@@ -42,7 +42,7 @@ def region_growing2(image, seed, thershold):
             if check_inside:
                 if segmented_image[x_new, y_new] == 0:
                     neighbor_points_list.append([x_new, y_new])
-                    neighbor_intensity_list.append(grey_image[x_new, y_new])
+                    neighbor_intensity_list.append(image[x_new, y_new])
                     segmented_image[x_new, y_new] = 255
 
         #Add pixel with intensity nearest to the mean to the region
@@ -91,8 +91,8 @@ def findRegions(image):
     Main.subplot_images(image_with_seed, 3, 'image with seed')
     # find region based on seed choice
     grey = region_growing(grey_image, (310,491),15)
-    #white = region_growing(grey_image, (150,400),5)
-    white = region_growing(grey_image, (325,370),5)
+    white = region_growing(grey_image, (150,400),5)
+    #white = region_growing(grey_image, (325,370),5)
     fluid = region_growing(grey_image, (250,250),25)
 
     return grey, white, fluid

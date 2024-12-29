@@ -21,9 +21,9 @@ def plot_result(grey,white,fluid, method):
     subplot_images(fluid, 6, method+' fluid image')
 
 def save_result(grey,white,fluid, method, nr):
-    cv2.imwrite('Results/'+method+'/greymatter/Brain'+nr+'_grey.png', grey)
-    cv2.imwrite('Results/'+method+'/whitematter/Brain'+nr+'_white.png', white)
-    cv2.imwrite('Results/'+method+'/fluid/Brain'+nr+'_fluid.png', fluid)
+    cv2.imwrite('Results/'+method+'/Brain'+nr+'_1.png', grey)
+    cv2.imwrite('Results/'+method+'/Brain'+nr+'_2.png', white)
+    cv2.imwrite('Results/'+method+'/Brain'+nr+'_3.png', fluid)
 
 if __name__ == "__main__":
     nr = '4'
