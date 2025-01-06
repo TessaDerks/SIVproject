@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import Main
+import Preprocessing
 
 def kmeans(image):
 
@@ -50,6 +51,8 @@ def getSegment(cluster_to_display,labels, image, centers):
     # Set the pixels corresponding to the selected cluster to the cluster's color'
     segmented_cluster_image[mask] = centers[cluster_to_display]
 
-    return segmented_cluster_image
+    cluster_image = Preprocessing.findBrainContour(image,segmented_cluster_image)
+
+    return cluster_image
 
     

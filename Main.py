@@ -26,34 +26,50 @@ def save_result(grey,white,fluid, method, nr):
     cv2.imwrite('Results/'+method+'/Brain'+nr+'_3.png', fluid)
 
 if __name__ == "__main__":
-    nr = '4'
+    nr = '52'
     
     #img = get_image('Dataset/Brain'+nr+'.png')
-    plt.figure(figsize=(8, 6))
+    #plt.figure(figsize=(8, 6))
     #subplot_images(img, 1, ' image')
     # resize, denoise and equalize the image
     #filtered_img = Preprocessing.filter_image(img)
     # remove the skull from the image and keep the brain
     #stripped_img = Preprocessing.skull_stripping(filtered_img)
     
-    stripped_img = get_image('Dataset/Brain'+nr+'_stripped_and_processed.png')
-    #cv2.imwrite('Dataset/Brain'+nr+'_stripped_and_processed.png', stripped_img)
+    stripped_img = get_image('Dataset/Stripped/Brain'+nr+'_stripped_and_processed.png')
+    #cv2.imwrite('Dataset/Stripped/Brain'+nr+'_stripped_and_processed.png', stripped_img)
     
     subplot_images(stripped_img, 2, 'filtered and stripped image')
+    
     #kmeans segmentation
     #kmeans_greymatter,kmeans_whitematter,kmeans_fluid = Kmeans.kmeans(stripped_img)
     #plot_result(kmeans_greymatter,kmeans_whitematter,kmeans_fluid, 'Kmeans')
     #save_result(kmeans_greymatter,kmeans_whitematter,kmeans_fluid, 'Kmeans',nr)
     
     #watershed segmentation
-    #watershed_greymatter, watershed_whitematter, watershed_fluid = Watershed.watershed2(stripped_img)
+    #watershed_greymatter, watershed_whitematter, watershed_fluid = Watershed.watershed(stripped_img)
     #plot_result(watershed_greymatter,watershed_whitematter,watershed_fluid, 'Watershed')
     #save_result(watershed_greymatter,watershed_whitematter,watershed_fluid, 'Watershed', nr)
 
     # region growing segmentation
-    rg_greymatter, rg_whitematter, rg_fluid = RegionGrowing.findRegions(stripped_img)
-    plot_result(rg_greymatter,rg_whitematter,rg_fluid, 'RegionGrowing')
+    #rg_greymatter, rg_whitematter, rg_fluid = RegionGrowing.findRegions(stripped_img)
+    #plot_result(rg_greymatter,rg_whitematter,rg_fluid, 'RegionGrowing')
     #save_result(rg_greymatter,rg_whitematter,rg_fluid, 'RegionGrowing', nr)
 
-    plt.show()
+    #plt.show()
+    '''
+    for i in range(20,65):
+        nr = str(i)
+        #img = get_image('Dataset/'+nr+'.png')
+        #filtered_img = Preprocessing.filter_image(img)
+        #stripped_img = Preprocessing.skull_stripping(filtered_img)
+        #cv2.imwrite('Dataset/Stripped/Brain'+nr+'_stripped_and_processed.png', stripped_img)
+
+        #kmeans_greymatter,kmeans_whitematter,kmeans_fluid = Kmeans.kmeans(stripped_img)
+        #save_result(kmeans_greymatter,kmeans_whitematter,kmeans_fluid, 'Kmeans',nr)
+        stripped_img = get_image('Dataset/Stripped/Brain'+nr+'_stripped_and_processed.png')
+
+        watershed_greymatter, watershed_whitematter, watershed_fluid = Watershed.watershed(stripped_img)
+        save_result(watershed_greymatter,watershed_whitematter,watershed_fluid, 'Watershed', nr)
+    '''
     

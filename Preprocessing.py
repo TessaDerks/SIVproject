@@ -12,11 +12,6 @@ def filter_image(image):
 
     # reduce noise of image while perserving edges with median filter
     filtered_image = cv2.medianBlur(grey_image, 5)
-    #filtered_image =  cv2.GaussianBlur(grey_image,(5,5),0)
-
-    # equalize image to improve quality
-    #equalized_image = cv2.equalizeHist(filtered_image)
-    #equalized_image = cv2.cvtColor(equalized_image, cv2.COLOR_GRAY2BGR)
 
     filtered_image = cv2.cvtColor(filtered_image, cv2.COLOR_GRAY2BGR)
 
@@ -40,6 +35,52 @@ def skull_stripping(image):
     brain_image[brain_mask==False] = (0,0,0)
 
     return brain_image
+
+
+def findBrainContour(src, segmented_image):
+
+    brain = src.copy()
+    result = segmented_image.copy()
+
+    # Extract all the external point top/bottom approach and fill the columns of pixels of white
+    for x in range(0, brain.shape[1]):
+
+        if np.all(brain[:, x] == 0):
+            continue
+        
+        non_zero = cv2.findNonZero(brain[:, x])
+    
+        y_top = non_zero[0][0][1]
+        y_bottom = non_zero[-1][0][1]
+
+        brain[y_top-5:y_bottom+5, x] = (255, 255, 255)
+
+    # Extract all the external point left/right approach and fill the columns of pixels of white
+    for y in range(0, brain.shape[0]):
+
+        if np.all(brain[y, :] == 0):
+            continue
+        
+        non_zero = cv2.findNonZero(brain[y, :])
+
+        x_left = non_zero[0][0][1]
+        x_right = non_zero[-1][0][1]
+
+        brain[y, x_left-5:x_right+5] = (255, 255, 255)
+
+    # Create and apply mask
+    gray = cv2.cvtColor(brain, cv2.COLOR_BGR2GRAY)
+    contours, _ = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    mask = np.zeros(brain.shape, dtype=np.uint8)
+    mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
+
+    cv2.drawContours(mask, contours, -1, (255, 255, 255), cv2.FILLED)
+
+    result[mask == False] = (0, 0, 0)
+
+    return result
+
 
 
 
