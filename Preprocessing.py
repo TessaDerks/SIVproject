@@ -1,8 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-import Main
-
 
 def filter_image(image):
     # Resize the image to streamline process
