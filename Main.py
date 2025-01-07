@@ -65,7 +65,7 @@ def getImageResult(nr, algorithm):
 
 if __name__ == "__main__":
     nr = '56'
-    algorithm = 'kmeans'
+    algorithm = 'regiongrowing'
     getImageResult(nr,algorithm)
 
 
